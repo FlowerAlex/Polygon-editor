@@ -1,0 +1,16 @@
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\bin\Debug\netcoreapp3.1\ComputerGraphicLab1.exe
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\bin\Debug\netcoreapp3.1\ComputerGraphicLab1.deps.json
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\bin\Debug\netcoreapp3.1\ComputerGraphicLab1.runtimeconfig.json
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\bin\Debug\netcoreapp3.1\ComputerGraphicLab1.runtimeconfig.dev.json
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\bin\Debug\netcoreapp3.1\ComputerGraphicLab1.dll
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\bin\Debug\netcoreapp3.1\ComputerGraphicLab1.pdb
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.Form1.resources
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.csproj.GenerateResource.cache
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.AssemblyInfoInputs.cache
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.AssemblyInfo.cs
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.csproj.CoreCompileInputs.cache
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.dll
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.pdb
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.genruntimeconfig.cache
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.csprojAssemblyReference.cache
+C:\Users\lleon\source\repos\ComputerGraphicLab1\ComputerGraphicLab1\obj\Debug\netcoreapp3.1\ComputerGraphicLab1.Properties.Resources.resources
