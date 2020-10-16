@@ -29,6 +29,9 @@ namespace ComputerGraphicLab1
         bool leftMouseDown;
         Point startPressedPosForMove;
         MyRectangle selectedRectangle;
+        MyRectangle actualEditedRectangle;
+        int actualMovingPointIndex;
+
         MyRectangle SelectedRectangle { get
             {
                 return selectedRectangle;
@@ -54,6 +57,8 @@ namespace ComputerGraphicLab1
             actualCreatingLine = new MyLine(Point.Empty,Point.Empty);
             SelectedButton = create_polygons_button;
             leftMouseDown = false;
+            actualEditedRectangle = null;
+            actualMovingPointIndex = -1;
         }
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -126,26 +131,29 @@ namespace ComputerGraphicLab1
             }
             else if(SelectedButton == add_vertexes_button){ 
 
-
-                //int i;
-                //for (i = rectangles.Count - 1; i >= 0; i--)
-                //{
-                //    if (rectangles[i].checkPointInside(e.Location))
-                //    {
-                //        SelectedRectangle = rectangles[i];
-                //        break;
-                //    }
-                //    SelectedRectangle = null;
-                //}
             }else if (SelectedButton == move_vertexes_button)
             {
+                bool isFinded = false;
 
+                for (int i = rectangles.Count - 1; i >= 0 && !isFinded; i--)
+                {
+                    for (int j = 0; j < rectangles[i].lines.Count; j++)
+                    {
+                        Point tmp;
+                        if (checkClickPos(tmp = rectangles[i].lines[j].start, e.Location))
+                        {
+                            actualEditedRectangle = rectangles[i];
+                            actualMovingPointIndex = j;
+                            isFinded = true;
+                            break;
+                        }
+                    }
+                }
             }
             else if (SelectedButton == delete_vertexes_button)
             {
-                int i;
                 bool isFinded = false;
-                for (i = rectangles.Count - 1; i >= 0 && !isFinded; i--)
+                for (int i = rectangles.Count - 1; i >= 0 && !isFinded; i--)
                 {
                     for (int j = 0; j < rectangles[i].lines.Count; j++)
                     {
@@ -180,7 +188,8 @@ namespace ComputerGraphicLab1
                 {
                     actualCreatingLine.end = e.Location;
                 }
-            }else if(SelectedButton == move_polygons_button)
+            }
+            else if(SelectedButton == move_polygons_button)
             {
                 if (leftMouseDown && SelectedRectangle != null)
                 {
@@ -188,6 +197,17 @@ namespace ComputerGraphicLab1
                         new Point(e.Location.X - startPressedPosForMove.X, e.Location.Y - startPressedPosForMove.Y)
                         );
                     startPressedPosForMove = e.Location;
+                }
+            }
+            else if (SelectedButton == move_vertexes_button)
+            {
+                if(actualEditedRectangle != null && actualMovingPointIndex != -1)
+                {
+                   
+                    actualEditedRectangle.lines[actualMovingPointIndex].start = e.Location;
+                    actualEditedRectangle.
+                        lines[(actualMovingPointIndex + actualEditedRectangle.lines.Count - 1)% actualEditedRectangle.lines.Count]
+                        .end = e.Location;
                 }
             }
             panel2.Invalidate();
@@ -208,6 +228,12 @@ namespace ComputerGraphicLab1
             {
                 SelectedRectangle = null;
                 leftMouseDown = false;
+
+            }
+            else if (SelectedButton == move_vertexes_button)
+            {
+                actualMovingPointIndex = -1;
+                actualEditedRectangle = null;
             }
         }
     }
