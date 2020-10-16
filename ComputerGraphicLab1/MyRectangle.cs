@@ -21,11 +21,18 @@ namespace ComputerGraphicLab1
         }
 
         
-        public void DrawMyRectangle(PaintEventArgs e, bool systemMethod)
+        public void DrawMyRectangle(PaintEventArgs e, MyRectangle selectedRectange, bool systemMethod)
         {
             if (lines.Count > 0 && (lines.First().start == lines.Last().end))
             {
-                e.Graphics.FillPolygon(Brushes.LightGray, lines.Select(it => it.start).ToArray());
+                if (selectedRectange != this)
+                {
+                    e.Graphics.FillPolygon(Brushes.LightGray, lines.Select(it => it.start).ToArray());
+                }
+                else
+                {
+                    e.Graphics.FillPolygon(Brushes.Gray, lines.Select(it => it.start).ToArray());
+                }
             }
             if (systemMethod)
             {
@@ -58,6 +65,23 @@ namespace ComputerGraphicLab1
             {
                 line.addDist(deltaDist);
             }
+        }
+        // return false : should remove all rectangle
+        public bool removeVertex(Point vertex)
+        {
+            if (lines.Count == 3) return false;
+            for(int i = 0; i < lines.Count; i++)
+            {
+                if(vertex == lines[i].start)
+                {
+                    MyLine newLine = new MyLine(lines[(i + lines.Count - 1)%lines.Count].start, lines[i].end);
+                    lines.RemoveAt(i);
+                    lines.RemoveAt((i + lines.Count - 1)%lines.Count);
+                    lines.Insert((i + lines.Count - 1) % lines.Count, newLine);
+                    return true;
+                }
+            }
+            return true;
         }
     }
 }
