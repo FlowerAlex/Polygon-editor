@@ -59,11 +59,11 @@ namespace ComputerGraphicLab1
             return path.GetBounds().Contains(pt);
         }
 
-        public void moveRectangle(Point deltaDist)
+        public void moveRectangle(Point offset)
         {
             foreach (MyLine line in lines)
             {
-                line.addDist(deltaDist);
+                line.changeDist(offset);
             }
         }
         // return false : should remove all rectangle
@@ -96,6 +96,13 @@ namespace ComputerGraphicLab1
                     break;
                 }
             }
+        }
+
+        public void moveLine(int lineIndex, Point offset)
+        {
+            lines[(lines.Count + lineIndex - 1) % lines.Count].end.Offset(offset);
+            lines[(lineIndex + 1) % lines.Count].start.Offset(offset);
+            lines[lineIndex].changeDist(offset);
         }
     }
 }

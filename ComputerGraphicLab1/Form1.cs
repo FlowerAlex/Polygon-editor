@@ -27,10 +27,13 @@ namespace ComputerGraphicLab1
             }
         }
         bool leftMouseDown;
-        Point startPressedPosForMove;
+        Point startPressedPosForMovePolygons;
         MyRectangle selectedRectangle;
         MyRectangle actualEditedRectangle;
         int actualMovingPointIndex;
+        private Point startPressedPosForMoveLine;
+        private MyRectangle rectangleWithSelectedEdge;
+        private int pressedLineIndex;
 
         MyRectangle SelectedRectangle { get
             {
@@ -59,6 +62,9 @@ namespace ComputerGraphicLab1
             leftMouseDown = false;
             actualEditedRectangle = null;
             actualMovingPointIndex = -1;
+            startPressedPosForMoveLine = Point.Empty;
+            rectangleWithSelectedEdge = null;
+            pressedLineIndex = -1;
         }
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
@@ -110,7 +116,7 @@ namespace ComputerGraphicLab1
                 for (i = rectangles.Count-1; i >= 0; i--)
                 {
                     if (rectangles[i].checkPointInside(e.Location)) {
-                        startPressedPosForMove = e.Location;
+                        startPressedPosForMovePolygons = e.Location;
                         SelectedRectangle = rectangles[i];
                         break;
                     }
@@ -173,17 +179,26 @@ namespace ComputerGraphicLab1
             }
             else if (SelectedButton == move_edges_button)
             {
-                
+                bool isFound = false;
+                for (int i = rectangles.Count - 1; i >= 0 && !isFound; i--)
+                {
+                    for (int j = 0; j < rectangles[i].lines.Count; j++)
+                    {
+                        if (rectangles[i].lines[j].checkPressedLine(e.Location))
+                        {
+                            startPressedPosForMoveLine = e.Location;
+                            rectangleWithSelectedEdge = rectangles[i];
+                            pressedLineIndex = j;
+                            isFound = true;
+                            break;
+                        }
+                    }
+
+                }
+                leftMouseDown = true;
             }
             panel2.Invalidate();
         }
-        //bool isEditButton(Button bt)
-        //{
-        //    return bt == add_vertexes_button ||
-        //        bt == move_vertexes_button || 
-        //        bt == delete_vertexes_button || 
-        //        bt == move_edges_button;
-        //}
         private void Panel2_MouseMove(object sender, MouseEventArgs e)
         {
             if(SelectedButton == create_polygons_button)
@@ -198,9 +213,9 @@ namespace ComputerGraphicLab1
                 if (leftMouseDown && SelectedRectangle != null)
                 {
                     SelectedRectangle.moveRectangle(
-                        new Point(e.Location.X - startPressedPosForMove.X, e.Location.Y - startPressedPosForMove.Y)
+                        new Point(e.Location.X - startPressedPosForMovePolygons.X, e.Location.Y - startPressedPosForMovePolygons.Y)
                         );
-                    startPressedPosForMove = e.Location;
+                    startPressedPosForMovePolygons = e.Location;
                 }
             }
             else if (SelectedButton == move_vertexes_button)
@@ -212,6 +227,15 @@ namespace ComputerGraphicLab1
                     actualEditedRectangle.
                         lines[(actualMovingPointIndex + actualEditedRectangle.lines.Count - 1)% actualEditedRectangle.lines.Count]
                         .end = e.Location;
+                }
+            }
+            else if (SelectedButton == move_edges_button)
+            {
+                if(rectangleWithSelectedEdge != null && pressedLineIndex != -1)
+                {
+
+                    rectangleWithSelectedEdge.moveLine(pressedLineIndex, new Point(e.X - startPressedPosForMoveLine.X, e.Y - startPressedPosForMoveLine.Y));
+                    startPressedPosForMoveLine = e.Location;
                 }
             }
             panel2.Invalidate();
@@ -238,6 +262,12 @@ namespace ComputerGraphicLab1
             {
                 actualMovingPointIndex = -1;
                 actualEditedRectangle = null;
+            }
+            else if(SelectedButton == move_edges_button)
+            {
+                startPressedPosForMoveLine = Point.Empty;
+                rectangleWithSelectedEdge = null;
+                pressedLineIndex = -1;
             }
         }
     }

@@ -27,10 +27,10 @@ namespace ComputerGraphicLab1
             else { throw new NotImplementedException(); }
         }
 
-        public void addDist(Point deltaDist)
+        public void changeDist(Point offset)
         {
-            start.Offset(deltaDist);
-            end.Offset(deltaDist);
+            start.Offset(offset);
+            end.Offset(offset);
         }
         public bool checkPressedLine(Point pt) =>
             distanceBetweenPoints(start, pt) + distanceBetweenPoints(end, pt) <= distanceBetweenPoints(start, end) + precision;
@@ -40,6 +40,8 @@ namespace ComputerGraphicLab1
 
         public Point midPoint() =>
             new Point((start.X + end.X)/2, (start.Y+end.Y)/2);
+
+
         
     }
 }
