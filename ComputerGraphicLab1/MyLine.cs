@@ -7,6 +7,7 @@ namespace ComputerGraphicLab1
 
     class MyLine
     {
+        public const double precision = 0.2;
         public Point start, end;
         public Pen myPen;
         public const int Radius = Form1.Radius;
@@ -31,5 +32,14 @@ namespace ComputerGraphicLab1
             start.Offset(deltaDist);
             end.Offset(deltaDist);
         }
+        public bool checkPressedLine(Point pt) =>
+            distanceBetweenPoints(start, pt) + distanceBetweenPoints(end, pt) <= distanceBetweenPoints(start, end) + precision;
+        
+        public double distanceBetweenPoints(Point a, Point b) =>
+            Math.Sqrt(Math.Pow(b.X - a.X,2) + Math.Pow(b.Y - a.Y, 2));
+
+        public Point midPoint() =>
+            new Point((start.X + end.X)/2, (start.Y+end.Y)/2);
+        
     }
 }

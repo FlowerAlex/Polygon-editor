@@ -129,9 +129,13 @@ namespace ComputerGraphicLab1
                     }
                 }
             }
-            else if(SelectedButton == add_vertexes_button){ 
-
-            }else if (SelectedButton == move_vertexes_button)
+            else if(SelectedButton == add_vertexes_button){
+                foreach(MyRectangle rect in rectangles)
+                {
+                    rect.addVertexOnThePressedLine(e.Location);
+                }
+            }
+            else if (SelectedButton == move_vertexes_button)
             {
                 bool isFinded = false;
 
@@ -169,17 +173,17 @@ namespace ComputerGraphicLab1
             }
             else if (SelectedButton == move_edges_button)
             {
-
+                
             }
             panel2.Invalidate();
         }
-        bool isEditButton(Button bt)
-        {
-            return bt == add_vertexes_button ||
-                bt == move_vertexes_button || 
-                bt == delete_vertexes_button || 
-                bt == move_edges_button;
-        }
+        //bool isEditButton(Button bt)
+        //{
+        //    return bt == add_vertexes_button ||
+        //        bt == move_vertexes_button || 
+        //        bt == delete_vertexes_button || 
+        //        bt == move_edges_button;
+        //}
         private void Panel2_MouseMove(object sender, MouseEventArgs e)
         {
             if(SelectedButton == create_polygons_button)
@@ -203,7 +207,7 @@ namespace ComputerGraphicLab1
             {
                 if(actualEditedRectangle != null && actualMovingPointIndex != -1)
                 {
-                   
+                    // should be new move vertex function with restrictions (later)
                     actualEditedRectangle.lines[actualMovingPointIndex].start = e.Location;
                     actualEditedRectangle.
                         lines[(actualMovingPointIndex + actualEditedRectangle.lines.Count - 1)% actualEditedRectangle.lines.Count]

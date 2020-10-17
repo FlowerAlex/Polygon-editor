@@ -9,7 +9,7 @@ namespace ComputerGraphicLab1
     class MyRectangle
     {
         public List<MyLine> lines;
-       
+
         public MyRectangle()
         {
             lines = new List<MyLine>();
@@ -20,7 +20,7 @@ namespace ComputerGraphicLab1
             this.lines = lines;
         }
 
-        
+
         public void DrawMyRectangle(PaintEventArgs e, MyRectangle selectedRectange, bool systemMethod)
         {
             if (lines.Count > 0 && (lines.First().start == lines.Last().end))
@@ -38,7 +38,7 @@ namespace ComputerGraphicLab1
             {
                 foreach (MyLine line in lines)
                 {
-                    line.DrawMyLine(e,systemMethod);
+                    line.DrawMyLine(e, systemMethod);
                 }
             }
             else
@@ -70,18 +70,32 @@ namespace ComputerGraphicLab1
         public bool removeVertex(Point vertex)
         {
             if (lines.Count == 3) return false;
-            for(int i = 0; i < lines.Count; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
-                if(vertex == lines[i].start)
+                if (vertex == lines[i].start)
                 {
-                    MyLine newLine = new MyLine(lines[(i + lines.Count - 1)%lines.Count].start, lines[i].end);
+                    MyLine newLine = new MyLine(lines[(i + lines.Count - 1) % lines.Count].start, lines[i].end);
                     lines.RemoveAt(i);
-                    lines.RemoveAt((i + lines.Count - 1)%lines.Count);
+                    lines.RemoveAt((i + lines.Count - 1) % lines.Count);
                     lines.Insert((i + lines.Count - 1) % lines.Count, newLine);
                     return true;
                 }
             }
             return true;
+        }
+        public void addVertexOnThePressedLine(Point pressedPoint)
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].checkPressedLine(pressedPoint))
+                {
+                    MyLine tmp = lines[i];
+                    lines.RemoveAt(i);
+                    lines.Insert(i, new MyLine(tmp.start, tmp.midPoint()));
+                    lines.Insert(i + 1, new MyLine(tmp.midPoint(),tmp.end));
+                    break;
+                }
+            }
         }
     }
 }
