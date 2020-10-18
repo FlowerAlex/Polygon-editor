@@ -34,18 +34,10 @@ namespace ComputerGraphicLab1
                     e.Graphics.FillPolygon(Brushes.Gray, lines.Select(it => it.start).ToArray());
                 }
             }
-            if (systemMethod)
+            foreach (MyLine line in lines)
             {
-                foreach (MyLine line in lines)
-                {
-                    line.DrawMyLine(e, systemMethod);
-                }
+                line.DrawMyLine(e, systemMethod);
             }
-            else
-            {
-
-            }
-
         }
         public void Add(MyLine line)
         {
@@ -56,7 +48,7 @@ namespace ComputerGraphicLab1
         {
             GraphicsPath path = new GraphicsPath();
             path.AddPolygon(lines.Select(it => it.start).ToArray());
-            return path.GetBounds().Contains(pt);
+            return path.IsVisible(pt);
         }
 
         public void moveRectangle(Point offset)
@@ -77,7 +69,10 @@ namespace ComputerGraphicLab1
                     MyLine newLine = new MyLine(lines[(i + lines.Count - 1) % lines.Count].start, lines[i].end);
                     lines.RemoveAt(i);
                     lines.RemoveAt((i + lines.Count - 1) % lines.Count);
-                    lines.Insert((i + lines.Count - 1) % lines.Count, newLine);
+                    if (i != 0)
+                        lines.Insert((i + lines.Count - 1) % lines.Count, newLine);
+                    else
+                        lines.Insert((i + lines.Count) % lines.Count, newLine);
                     return true;
                 }
             }

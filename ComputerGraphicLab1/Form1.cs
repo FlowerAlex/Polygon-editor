@@ -9,6 +9,7 @@ namespace ComputerGraphicLab1
     {
         public const int Radius = 3;
 
+        bool systemMethod;
         Panel panel2;
         List<MyRectangle> rectangles;
         bool createingLine;
@@ -43,7 +44,7 @@ namespace ComputerGraphicLab1
                 if (value != null && rectangles.Count > 1)
                 {
                     selectedRectangle = value;
-                    rectangles.Remove(SelectedRectangle);
+                    rectangles.Remove(selectedRectangle);
                     rectangles.Add(selectedRectangle);
                 }
                 else selectedRectangle = value;
@@ -65,17 +66,18 @@ namespace ComputerGraphicLab1
             startPressedPosForMoveLine = Point.Empty;
             rectangleWithSelectedEdge = null;
             pressedLineIndex = -1;
+            systemMethod = false;
         }
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
             foreach (MyRectangle rec in rectangles)
             {
-                rec.DrawMyRectangle(e,SelectedRectangle, true);
+                rec.DrawMyRectangle(e,SelectedRectangle, systemMethod);
             }
-            actualCreatingRectangle.DrawMyRectangle(e, SelectedRectangle, true);
+            actualCreatingRectangle.DrawMyRectangle(e, SelectedRectangle, systemMethod);
             if(actualCreatingLine.start != Point.Empty)
             {
-                actualCreatingLine.DrawMyLine(e,true);
+                actualCreatingLine.DrawMyLine(e,false);
             }
         }
         private void Panel2_MouseDown(object sender, MouseEventArgs e)
