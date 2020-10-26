@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.edit_angle_rule = new System.Windows.Forms.Button();
+            this.edit_vertical_rule_button = new System.Windows.Forms.Button();
+            this.edit_horisontal_rule_button = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.add_vertexes_button = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.delete_vertexes_button = new System.Windows.Forms.Button();
@@ -39,10 +43,7 @@
             this.move_polygons_button = new System.Windows.Forms.Button();
             this.create_polygons_button = new System.Windows.Forms.Button();
             this.HolderPanel = new ComputerGraphicLab1.MyCustomPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.edit_horisontal_rule_button = new System.Windows.Forms.Button();
-            this.edit_veritcal_rule_button = new System.Windows.Forms.Button();
-            this.edit_angle_rule = new System.Windows.Forms.Button();
+            this.system_method_checkbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -58,8 +59,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.system_method_checkbox);
             this.splitContainer1.Panel1.Controls.Add(this.edit_angle_rule);
-            this.splitContainer1.Panel1.Controls.Add(this.edit_veritcal_rule_button);
+            this.splitContainer1.Panel1.Controls.Add(this.edit_vertical_rule_button);
             this.splitContainer1.Panel1.Controls.Add(this.edit_horisontal_rule_button);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.add_vertexes_button);
@@ -78,6 +80,45 @@
             this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 0;
             this.splitContainer1.Text = "splitContainer1";
+            // 
+            // edit_angle_rule
+            // 
+            this.edit_angle_rule.Location = new System.Drawing.Point(13, 316);
+            this.edit_angle_rule.Name = "edit_angle_rule";
+            this.edit_angle_rule.Size = new System.Drawing.Size(170, 23);
+            this.edit_angle_rule.TabIndex = 11;
+            this.edit_angle_rule.Text = "Add/remove angle rule";
+            this.edit_angle_rule.UseVisualStyleBackColor = true;
+            this.edit_angle_rule.Click += new System.EventHandler(this.polygonsButtonClick);
+            // 
+            // edit_vertical_rule_button
+            // 
+            this.edit_vertical_rule_button.Location = new System.Drawing.Point(12, 286);
+            this.edit_vertical_rule_button.Name = "edit_vertical_rule_button";
+            this.edit_vertical_rule_button.Size = new System.Drawing.Size(171, 23);
+            this.edit_vertical_rule_button.TabIndex = 10;
+            this.edit_vertical_rule_button.Text = "Add/remove vertical rule";
+            this.edit_vertical_rule_button.UseVisualStyleBackColor = true;
+            this.edit_vertical_rule_button.Click += new System.EventHandler(this.polygonsButtonClick);
+            // 
+            // edit_horisontal_rule_button
+            // 
+            this.edit_horisontal_rule_button.Location = new System.Drawing.Point(13, 256);
+            this.edit_horisontal_rule_button.Name = "edit_horisontal_rule_button";
+            this.edit_horisontal_rule_button.Size = new System.Drawing.Size(170, 23);
+            this.edit_horisontal_rule_button.TabIndex = 9;
+            this.edit_horisontal_rule_button.Text = "Add/remove horisontal rule";
+            this.edit_horisontal_rule_button.UseVisualStyleBackColor = true;
+            this.edit_horisontal_rule_button.Click += new System.EventHandler(this.polygonsButtonClick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 237);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Rules";
             // 
             // add_vertexes_button
             // 
@@ -171,41 +212,17 @@
             this.HolderPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel2_MouseMove);
             this.HolderPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.HolderPanel_MouseUp);
             // 
-            // label2
+            // system_method_checkbox
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 237);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 15);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Rules";
-            // 
-            // edit_horisontal_rule_button
-            // 
-            this.edit_horisontal_rule_button.Location = new System.Drawing.Point(13, 256);
-            this.edit_horisontal_rule_button.Name = "edit_horisontal_rule_button";
-            this.edit_horisontal_rule_button.Size = new System.Drawing.Size(170, 23);
-            this.edit_horisontal_rule_button.TabIndex = 9;
-            this.edit_horisontal_rule_button.Text = "Add/remove horisontal rule";
-            this.edit_horisontal_rule_button.UseVisualStyleBackColor = true;
-            // 
-            // edit_veritcal_rule_button
-            // 
-            this.edit_veritcal_rule_button.Location = new System.Drawing.Point(12, 286);
-            this.edit_veritcal_rule_button.Name = "edit_veritcal_rule_button";
-            this.edit_veritcal_rule_button.Size = new System.Drawing.Size(171, 23);
-            this.edit_veritcal_rule_button.TabIndex = 10;
-            this.edit_veritcal_rule_button.Text = "Add/remove vertical rule";
-            this.edit_veritcal_rule_button.UseVisualStyleBackColor = true;
-            // 
-            // edit_angle_rule
-            // 
-            this.edit_angle_rule.Location = new System.Drawing.Point(13, 316);
-            this.edit_angle_rule.Name = "edit_angle_rule";
-            this.edit_angle_rule.Size = new System.Drawing.Size(170, 23);
-            this.edit_angle_rule.TabIndex = 11;
-            this.edit_angle_rule.Text = "Add/remove angle rule";
-            this.edit_angle_rule.UseVisualStyleBackColor = true;
+            this.system_method_checkbox.AutoSize = true;
+            this.system_method_checkbox.Location = new System.Drawing.Point(12, 419);
+            this.system_method_checkbox.Name = "system_method_checkbox";
+            this.system_method_checkbox.Size = new System.Drawing.Size(161, 19);
+            this.system_method_checkbox.TabIndex = 12;
+            this.system_method_checkbox.Text = "Own Method for drowing";
+            this.system_method_checkbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.system_method_checkbox.UseVisualStyleBackColor = true;
+            this.system_method_checkbox.CheckedChanged += new System.EventHandler(this.system_method_checkbox_CheckedChanged);
             // 
             // Form1
             // 
@@ -239,9 +256,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button add_vertexes_button;
         private System.Windows.Forms.Button edit_angle_rule;
-        private System.Windows.Forms.Button edit_veritcal_rule_button;
+        private System.Windows.Forms.Button edit_vertical_rule_button;
         private System.Windows.Forms.Button edit_horisontal_rule_button;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox system_method_checkbox;
     }
 }
 

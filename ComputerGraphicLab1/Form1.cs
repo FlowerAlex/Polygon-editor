@@ -195,9 +195,101 @@ namespace ComputerGraphicLab1
                             break;
                         }
                     }
-
                 }
                 leftMouseDown = true;
+            }
+            else if(SelectedButton == edit_horisontal_rule_button)
+            {
+
+                if (e.Button == MouseButtons.Left)
+                {
+                    bool isFound = false;
+                    for (int i = rectangles.Count - 1; i >= 0 && !isFound; i--)
+                    {
+                        for (int j = 0; j < rectangles[i].lines.Count; j++)
+                        {
+                            if (rectangles[i].lines[j].checkPressedLine(e.Location))
+                            {
+                                //add rule
+                                if(rectangles[i].lines[j].rule == null && 
+                                    rectangles[i].lines[(rectangles[i].lines.Count + j - 1)% rectangles[i].lines.Count].rule?.GetType() != typeof(HorizontalRule) &&
+                                    rectangles[i].lines[(j + 1) % rectangles[i].lines.Count].rule?.GetType() != typeof(HorizontalRule)
+                                    )
+                                {
+                                    rectangles[i].addRule(new HorizontalRule(), j);
+                                }
+
+                                isFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }else if(e.Button == MouseButtons.Right)
+                {
+                    bool isFound = false;
+                    for (int i = rectangles.Count - 1; i >= 0 && !isFound; i--)
+                    {
+                        for (int j = 0; j < rectangles[i].lines.Count; j++)
+                        {
+                            if (rectangles[i].lines[j].checkPressedLine(e.Location))
+                            {
+                                //delete rule 
+                                rectangles[i].deleteRule(j);
+                                isFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (SelectedButton == edit_vertical_rule_button)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    bool isFound = false;
+                    for (int i = rectangles.Count - 1; i >= 0 && !isFound; i--)
+                    {
+                        for (int j = 0; j < rectangles[i].lines.Count; j++)
+                        {
+                            if (rectangles[i].lines[j].checkPressedLine(e.Location))
+                            {
+
+                                //add rule
+                                if (rectangles[i].lines[j].rule == null &&
+                                    rectangles[i].lines[(rectangles[i].lines.Count + j - 1) % rectangles[i].lines.Count].rule?.GetType() != typeof(VerticalRule) &&
+                                    rectangles[i].lines[(j + 1) % rectangles[i].lines.Count].rule?.GetType() != typeof(VerticalRule)
+                                    )
+                                {
+                                    rectangles[i].addRule(new VerticalRule(), j);
+                                }
+                                isFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (e.Button == MouseButtons.Right)
+                {
+                    bool isFound = false;
+                    for (int i = rectangles.Count - 1; i >= 0 && !isFound; i--)
+                    {
+                        for (int j = 0; j < rectangles[i].lines.Count; j++)
+                        {
+                            if (rectangles[i].lines[j].checkPressedLine(e.Location))
+                            {
+                                //delete rule
+                                rectangles[i].deleteRule(j);
+
+                                isFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (SelectedButton == edit_angle_rule)
+            {
+
             }
             panel2.Invalidate();
         }
@@ -224,11 +316,7 @@ namespace ComputerGraphicLab1
             {
                 if(actualEditedRectangle != null && actualMovingPointIndex != -1)
                 {
-                    // should be new move vertex function with restrictions (later)
-                    actualEditedRectangle.lines[actualMovingPointIndex].start = e.Location;
-                    actualEditedRectangle.
-                        lines[(actualMovingPointIndex + actualEditedRectangle.lines.Count - 1)% actualEditedRectangle.lines.Count]
-                        .end = e.Location;
+                    actualEditedRectangle.moveVertex(actualMovingPointIndex,e.Location);
                 }
             }
             else if (SelectedButton == move_edges_button)
@@ -271,6 +359,13 @@ namespace ComputerGraphicLab1
                 rectangleWithSelectedEdge = null;
                 pressedLineIndex = -1;
             }
+        }
+
+        private void system_method_checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            systemMethod = !checkBox.Checked;
+            Invalidate();
         }
     }
 }

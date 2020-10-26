@@ -11,11 +11,13 @@ namespace ComputerGraphicLab1
         public Point start, end;
         public Pen myPen;
         public const int Radius = Form1.Radius;
-        public MyLine(Point start, Point end)
+        public Rule rule;
+        public MyLine(Point start, Point end, Rule rule = null)
         {
             this.start = start;
             this.end = end;
             this.myPen = new Pen(Color.Black);
+            this.rule = rule;
         }
         public void DrawMyLine(PaintEventArgs e, bool systemMethod)
         {
@@ -25,49 +27,59 @@ namespace ComputerGraphicLab1
             }
             else
             {
-                int x = start.X, y = start.Y, x2 = end.X, y2 = end.Y;
-                int w = x2 - x;
-                int h = y2 - y;
-                int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
-                if (w < 0) {
-                    dx1 = -1;
-                    dx2 = -1;
-                }
-                else if (w > 0) {
-                    dx1 = 1;
-                    dx2 = 1;
-                }
-                if (h < 0) dy1 = -1; 
-                else if (h > 0) dy1 = 1;
-                int longest = Math.Abs(w);
-                int shortest = Math.Abs(h);
-                if (!(longest > shortest))
+                int d, dx, dy, ai, bi, xi, yi;
+                int x = start.X, y = start.Y;
+                xi = start.X < end.X ? 1 : -1;
+                yi = start.Y < end.Y ? 1 : -1;
+                dx = Math.Abs(end.X - start.X);
+                dy = Math.Abs(end.Y - start.Y);
+
+                e.Graphics.FillRectangle(myPen.Brush, x, y, 1, 1);
+                if (dx > dy)
                 {
-                    longest = Math.Abs(h);
-                    shortest = Math.Abs(w);
-                    if (h < 0) dy2 = -1; else if (h > 0) dy2 = 1;
-                    dx2 = 0;
-                }
-                int numerator = longest / 2;
-                for (int i = 0; i <= longest; i++)
-                {
-                    e.Graphics.FillRectangle(myPen.Brush,x,y,1,1);
-                    numerator += shortest;
-                    if (!(numerator < longest))
+                    ai = (dy - dx) * 2;
+                    bi = dy * 2;
+                    d = bi - dx;
+                    while (x != end.X)
                     {
-                        numerator -= longest;
-                        x += dx1;
-                        y += dy1;
+                        x += xi;
+
+                        if (d >= 0)
+                        {
+                            y += yi;
+                            d += ai;
+                        }
+                        else
+                        {
+                            d += bi;
+                        }
+                        e.Graphics.FillRectangle(myPen.Brush, x, y, 1, 1);
                     }
-                    else
+                }
+                else
+                {
+                    ai = (dx - dy) * 2;
+                    bi = dx * 2;
+                    d = bi - dy;
+                    while (y != end.Y)
                     {
-                        x += dx2;
-                        y += dy2;
+                        y += yi;
+                        if (d >= 0)
+                        {
+                            x += xi;
+                            d += ai;
+                        }
+                        else
+                        {
+                            d += bi;
+                        }
+                        e.Graphics.FillRectangle(myPen.Brush, x, y, 1, 1);
                     }
                 }
             }
             e.Graphics.FillEllipse(Brushes.Green, start.X - Radius, start.Y - Radius, Radius + Radius, Radius + Radius);
             e.Graphics.DrawEllipse(myPen, start.X - Radius, start.Y - Radius, Radius + Radius, Radius + Radius);
+            rule?.Draw(e,start,end);
         }
 
         public void changeDist(Point offset)
@@ -78,11 +90,10 @@ namespace ComputerGraphicLab1
         public bool checkPressedLine(Point pt) =>
             distanceBetweenPoints(start, pt) + distanceBetweenPoints(end, pt) <= distanceBetweenPoints(start, end) + precision;
         
-        public double distanceBetweenPoints(Point a, Point b) =>
+        public static double distanceBetweenPoints(Point a, Point b) =>
             Math.Sqrt(Math.Pow(b.X - a.X,2) + Math.Pow(b.Y - a.Y, 2));
 
         public Point midPoint() =>
             new Point((start.X + end.X)/2, (start.Y+end.Y)/2);
-        
     }
 }

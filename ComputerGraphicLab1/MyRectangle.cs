@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ComputerGraphicLab1
@@ -38,6 +40,7 @@ namespace ComputerGraphicLab1
             {
                 line.DrawMyLine(e, systemMethod);
             }
+
         }
         public void Add(MyLine line)
         {
@@ -58,6 +61,7 @@ namespace ComputerGraphicLab1
                 line.changeDist(offset);
             }
         }
+
         // return false : should remove all rectangle
         public bool removeVertex(Point vertex)
         {
@@ -92,12 +96,60 @@ namespace ComputerGraphicLab1
                 }
             }
         }
-
+        public void moveVertex(int lineIndexWithStartPoint, Point finishPosition)
+        {
+            lines[lineIndexWithStartPoint].start = finishPosition;
+            lines[(lineIndexWithStartPoint + lines.Count - 1) % lines.Count].end = finishPosition;
+            changeRectWithRulesRelativelyPoint(lineIndexWithStartPoint);
+        }
         public void moveLine(int lineIndex, Point offset)
         {
             lines[(lines.Count + lineIndex - 1) % lines.Count].end.Offset(offset);
             lines[(lineIndex + 1) % lines.Count].start.Offset(offset);
             lines[lineIndex].changeDist(offset);
+            changeRectWithRulesRelativelyPoint(lineIndex);
+        }
+
+        public void addRule(Rule rule, int lineIndex) {
+            lines[lineIndex].rule = rule;
+            changeRectWithRulesRelativelyPoint(lineIndex);
+        }
+        public void deleteRule(int lineIndex)
+        {
+            lines[lineIndex].rule = null;
+        }
+
+        public bool changeRectWithRulesRelativelyPoint(int pointIndex)
+        {
+            for(int i = 0; i < lines.Count - 1; i++)
+            {
+                //start point static , end point able to move
+                if (lines[(pointIndex + i) % lines.Count].rule?.GetType() == typeof(HorizontalRule))
+                {
+                    lines[(pointIndex + i) % lines.Count].end = new Point(lines[(pointIndex + i) % lines.Count].end.X, lines[(pointIndex + i) % lines.Count].start.Y);
+                    lines[(pointIndex + i + 1) % lines.Count].start = new Point(lines[(pointIndex + i) % lines.Count].end.X, lines[(pointIndex + i) % lines.Count].start.Y);
+                }
+                else if(lines[(pointIndex + i) % lines.Count].rule?.GetType() == typeof(VerticalRule))
+                {        
+                    lines[(pointIndex + i) % lines.Count].end = new Point(lines[(pointIndex + i) % lines.Count].start.X, lines[(pointIndex + i) % lines.Count].end.Y);
+                    lines[(pointIndex + i + 1) % lines.Count].start = new Point(lines[(pointIndex + i) % lines.Count].start.X, lines[(pointIndex + i) % lines.Count].end.Y);
+                }
+
+            }
+            for (int i = 1; i < lines.Count; i++)
+            {
+                if (lines[(pointIndex + lines.Count - i) % lines.Count].rule?.GetType() == typeof(HorizontalRule))
+                {
+                    lines[(pointIndex + lines.Count - i) % lines.Count].start = new Point(lines[(pointIndex + lines.Count - i) % lines.Count].start.X, lines[(pointIndex + lines.Count - i) % lines.Count].end.Y);
+                    lines[(pointIndex + lines.Count - i - 1) % lines.Count].end = new Point(lines[(pointIndex + lines.Count - i) % lines.Count].start.X, lines[(pointIndex + lines.Count - i) % lines.Count].end.Y);
+                }
+                else if (lines[(pointIndex + lines.Count - i) % lines.Count].rule?.GetType() == typeof(VerticalRule))
+                {
+                    lines[(pointIndex + lines.Count - i) % lines.Count].start = new Point(lines[(pointIndex + lines.Count - i) % lines.Count].end.X, lines[(pointIndex + lines.Count - i) % lines.Count].start.Y);
+                    lines[(pointIndex + lines.Count - i - 1) % lines.Count].end = new Point(lines[(pointIndex + lines.Count - i) % lines.Count].end.X, lines[(pointIndex + lines.Count - i) % lines.Count].start.Y);
+                }
+            }
+            return false;
         }
     }
 }
