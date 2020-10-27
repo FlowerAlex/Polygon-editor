@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.edit_angle_rule = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.wu_radio_button = new System.Windows.Forms.RadioButton();
+            this.system_method_radiobutton = new System.Windows.Forms.RadioButton();
+            this.bresenham_radiobutton = new System.Windows.Forms.RadioButton();
             this.edit_vertical_rule_button = new System.Windows.Forms.Button();
             this.edit_horisontal_rule_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,11 +47,11 @@
             this.move_polygons_button = new System.Windows.Forms.Button();
             this.create_polygons_button = new System.Windows.Forms.Button();
             this.HolderPanel = new ComputerGraphicLab1.MyCustomPanel();
-            this.system_method_checkbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -59,8 +63,8 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.system_method_checkbox);
             this.splitContainer1.Panel1.Controls.Add(this.edit_angle_rule);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.edit_vertical_rule_button);
             this.splitContainer1.Panel1.Controls.Add(this.edit_horisontal_rule_button);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
@@ -83,6 +87,7 @@
             // 
             // edit_angle_rule
             // 
+            this.edit_angle_rule.Enabled = false;
             this.edit_angle_rule.Location = new System.Drawing.Point(13, 316);
             this.edit_angle_rule.Name = "edit_angle_rule";
             this.edit_angle_rule.Size = new System.Drawing.Size(170, 23);
@@ -90,6 +95,55 @@
             this.edit_angle_rule.Text = "Add/remove angle rule";
             this.edit_angle_rule.UseVisualStyleBackColor = true;
             this.edit_angle_rule.Click += new System.EventHandler(this.polygonsButtonClick);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.wu_radio_button);
+            this.groupBox1.Controls.Add(this.system_method_radiobutton);
+            this.groupBox1.Controls.Add(this.bresenham_radiobutton);
+            this.groupBox1.Location = new System.Drawing.Point(13, 350);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(170, 88);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // wu_radio_button
+            // 
+            this.wu_radio_button.AutoSize = true;
+            this.wu_radio_button.Enabled = false;
+            this.wu_radio_button.Location = new System.Drawing.Point(6, 63);
+            this.wu_radio_button.Name = "wu_radio_button";
+            this.wu_radio_button.Size = new System.Drawing.Size(102, 19);
+            this.wu_radio_button.TabIndex = 15;
+            this.wu_radio_button.TabStop = true;
+            this.wu_radio_button.Text = "algorythm WU";
+            this.wu_radio_button.UseVisualStyleBackColor = true;
+            this.wu_radio_button.Click += new System.EventHandler(this.system_method_radiobutton_Click);
+            // 
+            // system_method_radiobutton
+            // 
+            this.system_method_radiobutton.AutoSize = true;
+            this.system_method_radiobutton.Location = new System.Drawing.Point(6, 19);
+            this.system_method_radiobutton.Name = "system_method_radiobutton";
+            this.system_method_radiobutton.Size = new System.Drawing.Size(107, 19);
+            this.system_method_radiobutton.TabIndex = 13;
+            this.system_method_radiobutton.TabStop = true;
+            this.system_method_radiobutton.Text = "system method";
+            this.system_method_radiobutton.UseVisualStyleBackColor = true;
+            this.system_method_radiobutton.Click += new System.EventHandler(this.system_method_radiobutton_Click);
+            // 
+            // bresenham_radiobutton
+            // 
+            this.bresenham_radiobutton.AutoSize = true;
+            this.bresenham_radiobutton.Location = new System.Drawing.Point(6, 38);
+            this.bresenham_radiobutton.Name = "bresenham_radiobutton";
+            this.bresenham_radiobutton.Size = new System.Drawing.Size(129, 19);
+            this.bresenham_radiobutton.TabIndex = 14;
+            this.bresenham_radiobutton.TabStop = true;
+            this.bresenham_radiobutton.Text = "bresenham method";
+            this.bresenham_radiobutton.UseVisualStyleBackColor = true;
+            this.bresenham_radiobutton.Click += new System.EventHandler(this.system_method_radiobutton_Click);
             // 
             // edit_vertical_rule_button
             // 
@@ -212,18 +266,6 @@
             this.HolderPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel2_MouseMove);
             this.HolderPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.HolderPanel_MouseUp);
             // 
-            // system_method_checkbox
-            // 
-            this.system_method_checkbox.AutoSize = true;
-            this.system_method_checkbox.Location = new System.Drawing.Point(12, 419);
-            this.system_method_checkbox.Name = "system_method_checkbox";
-            this.system_method_checkbox.Size = new System.Drawing.Size(161, 19);
-            this.system_method_checkbox.TabIndex = 12;
-            this.system_method_checkbox.Text = "Own Method for drowing";
-            this.system_method_checkbox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.system_method_checkbox.UseVisualStyleBackColor = true;
-            this.system_method_checkbox.CheckedChanged += new System.EventHandler(this.system_method_checkbox_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -238,6 +280,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -259,7 +303,10 @@
         private System.Windows.Forms.Button edit_vertical_rule_button;
         private System.Windows.Forms.Button edit_horisontal_rule_button;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox system_method_checkbox;
+        private System.Windows.Forms.RadioButton wu_radio_button;
+        private System.Windows.Forms.RadioButton bresenham_radiobutton;
+        private System.Windows.Forms.RadioButton system_method_radiobutton;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

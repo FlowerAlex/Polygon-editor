@@ -8,8 +8,6 @@ namespace ComputerGraphicLab1
     public partial class Form1 : Form
     {
         public const int Radius = 3;
-
-        bool systemMethod;
         Panel panel2;
         List<MyRectangle> rectangles;
         bool createingLine;
@@ -35,6 +33,7 @@ namespace ComputerGraphicLab1
         private Point startPressedPosForMoveLine;
         private MyRectangle rectangleWithSelectedEdge;
         private int pressedLineIndex;
+        RadioButton activeAlgorythm;
 
         MyRectangle SelectedRectangle { get
             {
@@ -66,18 +65,18 @@ namespace ComputerGraphicLab1
             startPressedPosForMoveLine = Point.Empty;
             rectangleWithSelectedEdge = null;
             pressedLineIndex = -1;
-            systemMethod = false;
+            activeAlgorythm = system_method_radiobutton;
         }
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
             foreach (MyRectangle rec in rectangles)
             {
-                rec.DrawMyRectangle(e,SelectedRectangle, systemMethod);
+                rec.DrawMyRectangle(e,SelectedRectangle, activeAlgorythm.Text);
             }
-            actualCreatingRectangle.DrawMyRectangle(e, SelectedRectangle, systemMethod);
+            actualCreatingRectangle.DrawMyRectangle(e, SelectedRectangle, activeAlgorythm.Text);
             if(actualCreatingLine.start != Point.Empty)
             {
-                actualCreatingLine.DrawMyLine(e,false);
+                actualCreatingLine.DrawMyLine(e, activeAlgorythm.Text);
             }
         }
         private void Panel2_MouseDown(object sender, MouseEventArgs e)
@@ -210,7 +209,6 @@ namespace ComputerGraphicLab1
                         {
                             if (rectangles[i].lines[j].checkPressedLine(e.Location))
                             {
-                                //add rule
                                 if(rectangles[i].lines[j].rule == null && 
                                     rectangles[i].lines[(rectangles[i].lines.Count + j - 1)% rectangles[i].lines.Count].rule?.GetType() != typeof(HorizontalRule) &&
                                     rectangles[i].lines[(j + 1) % rectangles[i].lines.Count].rule?.GetType() != typeof(HorizontalRule)
@@ -233,7 +231,6 @@ namespace ComputerGraphicLab1
                         {
                             if (rectangles[i].lines[j].checkPressedLine(e.Location))
                             {
-                                //delete rule 
                                 rectangles[i].deleteRule(j);
                                 isFound = true;
                                 break;
@@ -254,7 +251,6 @@ namespace ComputerGraphicLab1
                             if (rectangles[i].lines[j].checkPressedLine(e.Location))
                             {
 
-                                //add rule
                                 if (rectangles[i].lines[j].rule == null &&
                                     rectangles[i].lines[(rectangles[i].lines.Count + j - 1) % rectangles[i].lines.Count].rule?.GetType() != typeof(VerticalRule) &&
                                     rectangles[i].lines[(j + 1) % rectangles[i].lines.Count].rule?.GetType() != typeof(VerticalRule)
@@ -277,7 +273,6 @@ namespace ComputerGraphicLab1
                         {
                             if (rectangles[i].lines[j].checkPressedLine(e.Location))
                             {
-                                //delete rule
                                 rectangles[i].deleteRule(j);
 
                                 isFound = true;
@@ -360,12 +355,10 @@ namespace ComputerGraphicLab1
                 pressedLineIndex = -1;
             }
         }
-
-        private void system_method_checkbox_CheckedChanged(object sender, EventArgs e)
+        private void system_method_radiobutton_Click(object sender, EventArgs e)
         {
-            CheckBox checkBox = (CheckBox)sender;
-            systemMethod = !checkBox.Checked;
-            Invalidate();
+            activeAlgorythm = (RadioButton)sender;
+            panel2.Invalidate();
         }
     }
 }

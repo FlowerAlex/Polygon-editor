@@ -23,7 +23,7 @@ namespace ComputerGraphicLab1
         }
 
 
-        public void DrawMyRectangle(PaintEventArgs e, MyRectangle selectedRectange, bool systemMethod)
+        public void DrawMyRectangle(PaintEventArgs e, MyRectangle selectedRectange, string btnName)
         {
             if (lines.Count > 0 && (lines.First().start == lines.Last().end))
             {
@@ -38,7 +38,7 @@ namespace ComputerGraphicLab1
             }
             foreach (MyLine line in lines)
             {
-                line.DrawMyLine(e, systemMethod);
+                line.DrawMyLine(e, btnName);
             }
 
         }

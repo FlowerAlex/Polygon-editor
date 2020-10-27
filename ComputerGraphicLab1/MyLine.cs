@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
 
 namespace ComputerGraphicLab1
@@ -19,13 +20,13 @@ namespace ComputerGraphicLab1
             this.myPen = new Pen(Color.Black);
             this.rule = rule;
         }
-        public void DrawMyLine(PaintEventArgs e, bool systemMethod)
+        public void DrawMyLine(PaintEventArgs e, string btnName)
         {
-            if (systemMethod)
+            if (btnName == "system method")
             {
                 e.Graphics.DrawLine(myPen, start, end);
             }
-            else
+            else if (btnName == "bresenham method")
             {
                 int d, dx, dy, ai, bi, xi, yi;
                 int x = start.X, y = start.Y;
@@ -77,11 +78,13 @@ namespace ComputerGraphicLab1
                     }
                 }
             }
+            else if (btnName == "algorythm WU")
+            {
+            }
             e.Graphics.FillEllipse(Brushes.Green, start.X - Radius, start.Y - Radius, Radius + Radius, Radius + Radius);
             e.Graphics.DrawEllipse(myPen, start.X - Radius, start.Y - Radius, Radius + Radius, Radius + Radius);
-            rule?.Draw(e,start,end);
+            rule?.Draw(e, start, end);
         }
-
         public void changeDist(Point offset)
         {
             start.Offset(offset);
